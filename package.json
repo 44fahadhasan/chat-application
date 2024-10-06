@@ -1,0 +1,46 @@
+{
+  "name": "chat-application",
+  "version": "1.0.0",
+  "description": "A full-stack chat application using Express.js and other modern web technologies",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/44fahadhasan/chat-application.git"
+  },
+  "keywords": [
+    "chat application",
+    "44fahadhasan",
+    "full stack project",
+    "express project",
+    "node.js",
+    "express.js",
+    "websocket",
+    "real-time chat"
+  ],
+  "author": "Md. Fahad Hasan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/44fahadhasan/chat-application/issues"
+  },
+  "homepage": "https://github.com/44fahadhasan/chat-application#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-validator": "^7.2.0",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.7.0",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^3.1.7"
+  }
+}
