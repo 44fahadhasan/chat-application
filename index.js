@@ -12,6 +12,7 @@ const {
 const loginRouter = require("./routes/loginRoutes");
 const usersRouter = require("./routes/usersRoutes");
 const inboxRouter = require("./routes/inboxRoutes");
+const handlePageTitle = require("./middlewares/common/handlePageTitle");
 
 // Load environment variables
 dotenv.config();
@@ -42,9 +43,9 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 
 // Routes
-app.use("/", loginRouter);
-app.use("/users", usersRouter);
-app.use("/inbox", inboxRouter);
+app.use("/", handlePageTitle("Login"), loginRouter);
+app.use("/users", handlePageTitle("Users"), usersRouter);
+app.use("/inbox", handlePageTitle("Inbox"), inboxRouter);
 
 // Handle not found (404 page)
 app.use(notFoundPage);

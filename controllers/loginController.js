@@ -1,7 +1,5 @@
 const getLoginPage = (req, res, next) => {
-  res.render("login", {
-    title: "Login - Chat Application",
-  });
+  res.render("login");
 };
 
 module.exports = {

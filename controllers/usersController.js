@@ -1,7 +1,5 @@
 const getUserPage = (req, res, next) => {
-  res.render("users", {
-    title: "Users - Chat Application",
-  });
+  res.render("users");
 };
 
 module.exports = {
