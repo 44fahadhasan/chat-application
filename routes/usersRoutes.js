@@ -10,16 +10,18 @@ const {
   userInputFiledValidation,
   inputValidatinHandler,
 } = require("../middlewares/user/inputFiledValidation");
+const { checkToken } = require("../middlewares/common/verifiyToken");
 
 // init users route
 const usersRouter = express.Router();
 
 // Get users page
-usersRouter.get("/", getUserPage);
+usersRouter.get("/", checkToken, getUserPage);
 
 // Create a new user
 usersRouter.post(
   "/",
+  checkToken,
   handleAvatarUpload,
   userInputFiledValidation,
   inputValidatinHandler,
@@ -27,6 +29,6 @@ usersRouter.post(
 );
 
 // Delete a user
-usersRouter.delete("/:id", removeUser);
+usersRouter.delete("/:id", checkToken, removeUser);
 
 module.exports = usersRouter;
