@@ -11,9 +11,9 @@
   </head>
   <body>
     <div class="menu">
+      <% if (loggedUserInfo && loggedUserInfo?.username) { %>
       <div class="menu-item"><a href="/inbox">Inbox</a></div>
       <div class="menu-item"><a href="/users">Users</a></div>
-      <% if (loggedUserInfo && loggedUserInfo?.username) { %>
       <div class="menu-item">
         <a href="/" onclick="logout()"> Logout </a>
       </div>
@@ -23,14 +23,14 @@
       </div>
       <% } %>
     </div>
-    
+
     <script>
       const logoutToast = Toastify({
         text: "Logout succesfull",
         duration: 1000,
       });
 
-      const  logout = () => {
+      const logout = () => {
         fetch("/", {
           method: "DELETE",
         });
@@ -38,5 +38,5 @@
         setTimeout(() => {
           window.location.replace("/");
         }, 1000);
-      }
+      };
     </script>
