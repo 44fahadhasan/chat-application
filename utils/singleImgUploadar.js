@@ -3,7 +3,13 @@ const createError = require("http-errors");
 const multer = require("multer");
 const path = require("path");
 
-const uploader = (folderPath, fileType, maxFileSize, errMsg) => {
+const uploader = (
+  folderPath,
+  fileType,
+  maxFileSize,
+  maxNumberOfFiles,
+  errMsg
+) => {
   // File upload folder path
   const uploadFolder = `${__dirname}/../public/uploads/${folderPath}`;
 
@@ -35,10 +41,16 @@ const uploader = (folderPath, fileType, maxFileSize, errMsg) => {
     },
 
     fileFilter: (req, file, callback) => {
-      if (fileType.includes(file.mimetype)) {
-        callback(null, true);
+      if (req.files.length > maxNumberOfFiles) {
+        callback(
+          createError(`Maximum ${maxNumberOfFiles} files allow to upload`)
+        );
       } else {
-        callback(createError(errMsg));
+        if (fileType.includes(file.mimetype)) {
+          callback(null, true);
+        } else {
+          callback(createError(errMsg));
+        }
       }
     },
   });

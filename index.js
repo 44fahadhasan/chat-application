@@ -1,5 +1,8 @@
 // Import dependencies
 const express = require("express");
+const http = require("http");
+const moment = require("moment");
+const { Server } = require("socket.io");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
@@ -20,6 +23,23 @@ dotenv.config();
 // Express app init
 const app = express();
 
+// Create a server for socket.io
+const server = http.createServer(app);
+
+// Initialize Socket.IO server with CORS configuration
+const io = new Server(server, {
+  cors: {
+    origin: "*",
+    methods: "*",
+  },
+});
+
+// Attach Socket.IO instance to global object
+global.io = io;
+
+// Set moment as app locals
+app.locals.moment = moment;
+
 // Request parsers
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -28,7 +48,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Enable CORS
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+    methods: "*",
+    credentials: true,
+  })
+);
 
 // Connect to MongoDB
 mongoose

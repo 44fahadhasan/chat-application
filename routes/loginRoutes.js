@@ -1,4 +1,4 @@
-// // Import dependencies
+// Import dependencies
 const express = require("express");
 const {
   getLoginPage,
@@ -11,9 +11,10 @@ const {
 } = require("../middlewares/login/inputFiledValidation");
 const { allReadyLogin } = require("../middlewares/common/verifiyToken");
 
-// // init login route
+// init login route
 const loginRouter = express.Router();
 
+// Get login page
 loginRouter.get("/", allReadyLogin, getLoginPage);
 
 // user login

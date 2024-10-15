@@ -30,9 +30,11 @@ const handleUserLogin = async (req, res) => {
 
       if (isValidPassword) {
         const userInfo = {
+          userId: user._id,
           username: user.name,
           mobile: user.mobile,
           email: user.email,
+          avatar: user.avatar,
           role: user.role,
         };
 
