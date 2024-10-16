@@ -33,14 +33,13 @@
     </div>
   </div>
 </div>
-
 <script>
   const modal = document.querySelector("#add-user-modal");
   const form = document.querySelector("#add-user-form");
 
   // success toast
   const successToast = Toastify({
-    text: "User create succesfull",
+    text: "User was added successfully! Reloading the list...",
     duration: 1000,
   });
 
@@ -51,10 +50,11 @@
     modal.style.display = "block";
   }
 
-  // Form submit handler
+  // form submit handler
   form.onsubmit = async function (event) {
     event.preventDefault();
 
+    // clear errors first
     const errorPlaceholders = document.querySelectorAll("p.error");
     for (let i = 0; i < errorPlaceholders.length; i++) {
       errorPlaceholders[i].style.display = "none";
@@ -67,29 +67,39 @@
       }
     }
 
+    // prepare the form data
     const formData = new FormData(form);
 
+    // send the request to server
     let response = await fetch("/users", {
       method: "POST",
       body: formData,
     });
 
+    // get response
     let result = await response.json();
 
+    // handle error and response
     if (result.errors) {
+      // errors
       Object.keys(result.errors).forEach((fieldName) => {
+        // add error class to all inputs
         form[fieldName].classList.add("error");
 
+        // set all error placeholders (p tag) textContent
         const errorPlaceholder = document.querySelector(`.${fieldName}-error`);
         errorPlaceholder.textContent = result.errors[fieldName].msg;
 
+        // make all placeholders visible
         errorPlaceholder.style.display = "block";
       });
     } else {
+      // success
       successToast.showToast();
       closeModal();
       document.querySelector("p.error").style.display = "none";
 
+      // reload the page after 1 second
       setTimeout(() => {
         location.reload();
       }, 1000);

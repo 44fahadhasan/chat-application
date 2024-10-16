@@ -1,40 +1,32 @@
-// Import dependencies
 const mongoose = require("mongoose");
 
-const pepoleSchema = new mongoose.Schema(
+const peopleSchema = mongoose.Schema(
   {
     name: {
       type: String,
       required: true,
       trim: true,
     },
-
     email: {
       type: String,
       required: true,
       trim: true,
       lowercase: true,
     },
-
     mobile: {
       type: String,
       required: true,
-      trim: true,
     },
-
     password: {
       type: String,
       required: true,
     },
-
     avatar: {
       type: String,
     },
-
     role: {
       type: String,
-      required: true,
-      enum: ["user", "admin"],
+      enum: ["admin", "user"],
       default: "user",
     },
   },
@@ -43,6 +35,6 @@ const pepoleSchema = new mongoose.Schema(
   }
 );
 
-const Pepole = new mongoose.model("People", pepoleSchema);
+const People = mongoose.model("People", peopleSchema);
 
-module.exports = Pepole;
+module.exports = People;

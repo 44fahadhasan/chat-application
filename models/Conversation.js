@@ -1,4 +1,3 @@
-// Import dependencies
 const mongoose = require("mongoose");
 
 const conversationSchema = new mongoose.Schema(
@@ -14,13 +13,11 @@ const conversationSchema = new mongoose.Schema(
       name: String,
       avatar: String,
     },
-
     last_updated: {
       type: Date,
       default: Date.now,
     },
   },
-
   {
     timestamps: true,
   }

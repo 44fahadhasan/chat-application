@@ -12,26 +12,34 @@
   </head>
   <body>
     <div class="menu">
-      <% if (loggedUserInfo && loggedUserInfo?.username) { %>
+      <% if (loggedInUser && loggedInUser.username) { %>
       <div class="menu-item"><a href="/inbox">Inbox</a></div>
       <div class="menu-item"><a href="/users">Users</a></div>
       <div class="menu-item">
-        <a href="/" onclick="logout()"> Logout </a>
+        <% if (loggedInUser && loggedInUser.avatar) { %>
+        <img
+          src="./uploads/avatars/<%= loggedInUser.avatar %>"
+          alt="<%= loggedInUser.name %>"
+        />
+        <% } else { %>
+        <img src="./images/nophoto.png" alt="<%= loggedInUser.name %>" />
+        <% } %>
+        <a href="#" onclick="logout()">Logout</a>
       </div>
       <% } else { %>
-      <div class="menu-item">
-        <a href="/">Login</a>
-      </div>
+      <div class="menu-item"><a href="/inbox">Inbox</a></div>
+      <div class="menu-item"><a href="/users">Users</a></div>
+      <div class="menu-item"><a href="/">Login</a></div>
       <% } %>
     </div>
-
     <script>
+      // toast
       const logoutToast = Toastify({
-        text: "Logout succesfull",
+        text: "You are being logged out...",
         duration: 1000,
       });
 
-      const logout = () => {
+      function logout() {
         fetch("/", {
           method: "DELETE",
         });
@@ -39,5 +47,7 @@
         setTimeout(() => {
           window.location.replace("/");
         }, 1000);
-      };
+      }
     </script>
+  </body>
+</html>

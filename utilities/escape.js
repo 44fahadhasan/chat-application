@@ -1,4 +1,4 @@
-const escape = (str) => {
+const escape = function (str) {
   return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&");
 };
 
