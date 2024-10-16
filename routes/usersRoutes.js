@@ -10,13 +10,13 @@ const {
   userInputFiledValidation,
   inputValidatinHandler,
 } = require("../middlewares/user/inputFiledValidation");
-const { checkToken } = require("../middlewares/common/verifiyToken");
+const { checkToken, checkRole } = require("../middlewares/common/verifiyToken");
 
 // init users route
 const usersRouter = express.Router();
 
 // Get users page
-usersRouter.get("/", checkToken, getUserPage);
+usersRouter.get("/", checkToken, checkRole(["admin"]), getUserPage);
 
 // Create a new user
 usersRouter.post(

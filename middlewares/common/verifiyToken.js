@@ -1,5 +1,6 @@
 // Import dependencies
 const jwt = require("jsonwebtoken");
+const createError = require("http-errors");
 
 const checkToken = (req, res, next) => {
   let cookies =
@@ -55,4 +56,24 @@ const allReadyLogin = (req, res, next) => {
   }
 };
 
-module.exports = { checkToken, allReadyLogin };
+const checkRole = (roleStatus) => {
+  return (req, res, next) => {
+    if (req.userInfo.role && roleStatus.includes(req.userInfo.role)) {
+      next();
+    } else {
+      if (res.locals.html) {
+        next(createError(401, "This page will not going to you"));
+      } else {
+        res.status(401).json({
+          error: {
+            common: {
+              msg: "You are not authorized!",
+            },
+          },
+        });
+      }
+    }
+  };
+};
+
+module.exports = { checkToken, allReadyLogin, checkRole };
